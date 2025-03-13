@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scholar_chat/pages/login_page.dart';
 
 void main() {
   runApp(const ScholarApp());
@@ -11,20 +12,8 @@ class ScholarApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Scholar App',
-      home: HomeView(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(title: Text("Scholar app"), backgroundColor: Colors.amber),
     );
   }
 }
