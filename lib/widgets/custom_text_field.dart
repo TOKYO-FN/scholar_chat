@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
+        labelStyle: TextStyle(color: Colors.black),
         labelText: label,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:scholar_chat/constants.dart';
-import 'package:scholar_chat/pages/registeration_page.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
-  static String id = 'LoginPage';
+class RegisterationPage extends StatelessWidget {
+  const RegisterationPage({super.key});
+
+  static String id = 'RegisterationPage';
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 32, fontFamily: 'Pacifico'),
               ),
               Text(
-                'Login',
+                'Sign up',
                 style: TextStyle(fontSize: 24, fontFamily: 'Pacifico'),
               ),
               SizedBox(height: 10),
@@ -53,17 +53,15 @@ class LoginPage extends StatelessWidget {
               CustomTextField(label: 'Password'),
               SizedBox(height: 10),
 
-              CustomButton(label: 'Login'),
+              CustomButton(label: 'Sign up'),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("don't have an account "),
+                  Text("Already have an account "),
                   GestureDetector(
-                    onTap:
-                        () =>
-                            Navigator.pushNamed(context, RegisterationPage.id),
+                    onTap: () => Navigator.pop(context),
                     child: Text(
-                      'Register',
+                      'Login',
                       style: TextStyle(color: Colors.amber.shade500),
                     ),
                   ),
