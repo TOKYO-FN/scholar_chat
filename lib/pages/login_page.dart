@@ -35,17 +35,27 @@ class LoginPage extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          child: Column(
+          child: ListView(
             children: [
-              Spacer(),
-              Image.asset('assets/images/scholar.png'),
-              Text(
-                'Scholar Chat',
-                style: TextStyle(fontSize: 32, fontFamily: 'Pacifico'),
+              SizedBox(height: 100),
+              Image.asset('assets/images/scholar.png', height: 100),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Scholar Chat',
+                    style: TextStyle(fontSize: 32, fontFamily: 'Pacifico'),
+                  ),
+                ],
               ),
-              Text(
-                'Login',
-                style: TextStyle(fontSize: 24, fontFamily: 'Pacifico'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Login',
+                    style: TextStyle(fontSize: 24, fontFamily: 'Pacifico'),
+                  ),
+                ],
               ),
               SizedBox(height: 10),
               CustomTextField(label: 'Email'),
@@ -53,7 +63,7 @@ class LoginPage extends StatelessWidget {
               CustomTextField(label: 'Password'),
               SizedBox(height: 10),
 
-              CustomButton(label: 'Login'),
+              CustomButton(label: 'Login', fun: () {}),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -69,7 +79,6 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(flex: 2),
             ],
           ),
         ),
