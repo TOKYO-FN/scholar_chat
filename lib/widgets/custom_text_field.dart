@@ -9,7 +9,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       validator: (data) {
-        if (data != "Youssef") return 'error';
+        if (data!.isEmpty) return 'this field is required';
       },
       onChanged: onChanged,
       decoration: InputDecoration(
