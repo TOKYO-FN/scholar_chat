@@ -29,11 +29,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
       inAsyncCall: isLoading,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text("Scholar app"),
-          backgroundColor: kPrimaryColor,
-          elevation: 0,
-        ),
+        appBar: AppBar(backgroundColor: kPrimaryColor, elevation: 0),
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -57,7 +53,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
 
               child: ListView(
                 children: [
-                  SizedBox(height: 100),
+                  SizedBox(height: 60),
                   Image.asset('assets/images/scholar.png', height: 100),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -68,26 +64,22 @@ class _RegisterationPageState extends State<RegisterationPage> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Sign up',
-                        style: TextStyle(fontSize: 24, fontFamily: 'Pacifico'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  CustomTextField(
+
+                  SizedBox(height: 50),
+                  CustomTextField.CustomTextFormField(
                     label: 'Email',
                     onChanged: (data) => email = data,
-                  ),
-                  SizedBox(height: 5),
-                  CustomTextField(
-                    label: 'Password',
-                    onChanged: (data) => password = data,
+                    prefixIcon: Icon(Icons.email_outlined),
                   ),
                   SizedBox(height: 10),
+                  CustomTextField.CustomTextFormField(
+                    label: 'Password',
+                    isPassword: true,
+                    onChanged: (data) => password = data,
+                    prefixIcon: Icon(Icons.lock_outline_rounded),
+                    postFixIcon: Icon(Icons.remove_red_eye_outlined),
+                  ),
+                  SizedBox(height: 14),
 
                   CustomButton(
                     label: 'Sign up',
@@ -118,6 +110,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                       }
                     },
                   ),
+                  SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

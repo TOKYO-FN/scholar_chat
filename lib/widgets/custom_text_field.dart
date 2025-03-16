@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
-  CustomTextField({super.key, required this.label, this.onChanged});
+  CustomTextField.CustomTextFormField({
+    super.key,
+    required this.label,
+    this.onChanged,
+    this.isPassword = false,
+    this.prefixIcon,
+    this.postFixIcon,
+  });
   final String label;
   Function(String)? onChanged;
+  final bool isPassword;
+  Icon? prefixIcon;
+  Icon? postFixIcon;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: isPassword,
       validator: (data) {
         if (data!.isEmpty) return 'this field is required';
       },
       onChanged: onChanged,
       decoration: InputDecoration(
+        prefixIcon: prefixIcon,
+        suffixIcon: postFixIcon,
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(color: Colors.red),

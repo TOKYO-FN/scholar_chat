@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Colors.amber;
+Color kPrimaryColor = Colors.amber[400]!;

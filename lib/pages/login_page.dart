@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/helper/show_snack_bar.dart';
@@ -27,11 +28,7 @@ class _LoginPageState extends State<LoginPage> {
       inAsyncCall: isLoading,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text("Scholar app"),
-          backgroundColor: kPrimaryColor,
-          elevation: 0,
-        ),
+        appBar: AppBar(backgroundColor: kPrimaryColor, elevation: 0),
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -54,7 +51,8 @@ class _LoginPageState extends State<LoginPage> {
               key: formKey,
               child: ListView(
                 children: [
-                  SizedBox(height: 100),
+                  SizedBox(height: 60),
+
                   Image.asset('assets/images/scholar.png', height: 100),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -65,30 +63,30 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Login',
-                        style: TextStyle(fontSize: 24, fontFamily: 'Pacifico'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  CustomTextField(
+
+                  SizedBox(height: 50),
+
+                  CustomTextField.CustomTextFormField(
                     label: 'Email',
+                    prefixIcon: Icon(Icons.email_outlined),
+
                     onChanged: (data) {
                       email = data;
                     },
                   ),
-                  SizedBox(height: 5),
-                  CustomTextField(
+                  SizedBox(height: 10),
+                  CustomTextField.CustomTextFormField(
+                    isPassword: true,
+
                     label: 'Password',
+                    prefixIcon: Icon(Icons.lock_outline_rounded),
+                    postFixIcon: Icon(Icons.remove_red_eye_outlined),
+
                     onChanged: (data) {
                       password = data;
                     },
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 14),
 
                   CustomButton(
                     label: 'Login',
@@ -100,17 +98,17 @@ class _LoginPageState extends State<LoginPage> {
                           await loginUser();
                           showSnackBar(context, 'Success!');
                         } on FirebaseAuthException catch (e) {
-                          print(e);
-                          if (e.code == 'user-not-found') {
-                            showSnackBar(
-                              context,
-                              'No user found for that email',
-                            );
-                          } else if (e.code == 'wrong-password') {
-                            showSnackBar(
-                              context,
-                              'Wrong password provided for that user',
-                            );
+                          switch (e.code) {
+                            case 'invalid-email':
+                              showSnackBar(
+                                context,
+                                "Invalid email please check your email",
+                              );
+                            case 'invalid-credential':
+                              showSnackBar(
+                                context,
+                                "Invalid email or password",
+                              );
                           }
                         } catch (e) {
                           print(e);
@@ -121,6 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                   ),
+                  SizedBox(height: 10),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
