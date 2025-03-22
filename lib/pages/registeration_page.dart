@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/helper/show_snack_bar.dart';
+import 'package:scholar_chat/pages/chat_page.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
@@ -22,6 +24,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
   bool isLoading = false;
 
   GlobalKey<FormState> formKey = GlobalKey();
+  bool obsecureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +76,20 @@ class _RegisterationPageState extends State<RegisterationPage> {
                   ),
                   SizedBox(height: 10),
                   CustomTextField.CustomTextFormField(
+                    isPassword: obsecureText,
+
                     label: 'Password',
-                    isPassword: true,
-                    onChanged: (data) => password = data,
                     prefixIcon: Icon(Icons.lock_outline_rounded),
-                    postFixIcon: Icon(Icons.remove_red_eye_outlined),
+                    postFixIcon: IconButton(
+                      onPressed: () {
+                        obsecureText = !obsecureText;
+                        setState(() {});
+                      },
+                      icon:
+                          obsecureText
+                              ? Icon(CupertinoIcons.eye_slash)
+                              : Icon(CupertinoIcons.eye),
+                    ),
                   ),
                   SizedBox(height: 14),
 
@@ -89,6 +101,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                         setState(() {});
                         try {
                           await registerUser();
+                          Navigator.pushNamed(context, ChatPage.id);
                           showSnackBar(context, 'Success!');
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {

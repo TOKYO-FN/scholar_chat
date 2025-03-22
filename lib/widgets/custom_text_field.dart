@@ -13,7 +13,7 @@ class CustomTextField extends StatelessWidget {
   Function(String)? onChanged;
   final bool isPassword;
   Icon? prefixIcon;
-  Icon? postFixIcon;
+  IconButton? postFixIcon;
 
   @override
   Widget build(BuildContext context) {

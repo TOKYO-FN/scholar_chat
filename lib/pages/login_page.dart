@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/helper/show_snack_bar.dart';
+import 'package:scholar_chat/pages/chat_page.dart';
 import 'package:scholar_chat/pages/registeration_page.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
@@ -21,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   String? email;
   String? password;
   GlobalKey<FormState> formKey = GlobalKey();
+  bool obsecureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -76,11 +78,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   SizedBox(height: 10),
                   CustomTextField.CustomTextFormField(
-                    isPassword: true,
+                    isPassword: obsecureText,
 
                     label: 'Password',
                     prefixIcon: Icon(Icons.lock_outline_rounded),
-                    postFixIcon: Icon(Icons.remove_red_eye_outlined),
+                    postFixIcon: IconButton(
+                      onPressed: () {
+                        obsecureText = !obsecureText;
+                        setState(() {});
+                      },
+                      icon:
+                          obsecureText
+                              ? Icon(CupertinoIcons.eye_slash)
+                              : Icon(CupertinoIcons.eye),
+                    ),
 
                     onChanged: (data) {
                       password = data;
@@ -97,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                         try {
                           await loginUser();
                           showSnackBar(context, 'Success!');
+                          Navigator.pushNamed(context, ChatPage.id);
                         } on FirebaseAuthException catch (e) {
                           switch (e.code) {
                             case 'invalid-email':
