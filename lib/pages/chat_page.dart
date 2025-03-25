@@ -5,6 +5,9 @@ import 'package:scholar_chat/widgets/message_widget.dart';
 
 class ChatPage extends StatelessWidget {
   static String id = 'ChatPage';
+  CollectionReference messages = FirebaseFirestore.instance.collection(
+    kMessages,
+  );
   String? message;
 
   TextEditingController controller = TextEditingController();
@@ -12,87 +15,96 @@ class ChatPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('assets/images/scholar.png', height: 50),
-            Text("Chat"),
-          ],
-        ),
-        centerTitle: true,
-        backgroundColor: kPrimaryColor,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: <Color>[Color(0xffC7EDE9), Color(0xffC7EDE9)],
+    return FutureBuilder<QuerySnapshot>(
+      future: messages.get(),
+      builder: (context, snapshot) {
+        return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/scholar.png', height: 50),
+                Text("Chat"),
+              ],
+            ),
+            centerTitle: true,
+            backgroundColor: kPrimaryColor,
           ),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                reverse: true,
-                itemBuilder:
-                    (context, index) => MessageWidget(
-                      message:
-                          'hello from index $index hello from index $index hello from index $index hello from index $index hello from index $index hello from index $index hello from index $index hello from index $index hello from index $index',
-                    ),
-                itemCount: 20,
+          body: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: <Color>[
+                  Color.fromARGB(255, 238, 136, 136),
+                  Color.fromARGB(255, 231, 164, 164),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 8,
-                right: 10,
-                left: 10,
-                bottom: 20,
-              ),
-              child: TextField(
-                onChanged: (value) => message = value,
-                controller: controller,
-                onSubmitted: (value) {
-                  CollectionReference messages = FirebaseFirestore.instance
-                      .collection(kMessages);
-                  messages.add({'message': value});
-                  controller.clear();
-                },
-                decoration: InputDecoration(
-                  hintText: "Send a Message",
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.send),
-                    onPressed: () {
-                      CollectionReference messages = FirebaseFirestore.instance
-                          .collection(kMessages);
-                      messages.add({'message': message});
-                      controller.clear();
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    reverse: true,
+
+                    itemBuilder: (context, index) {
+                      print(snapshot);
+                      return MessageWidget(message: 'hey');
                     },
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: Colors.red),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: Colors.red),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    itemCount: 20,
                   ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                    right: 10,
+                    left: 10,
+                    bottom: 20,
+                  ),
+                  child: TextField(
+                    onChanged: (value) => message = value,
+                    controller: controller,
+                    onSubmitted: (value) {
+                      CollectionReference messages = FirebaseFirestore.instance
+                          .collection(kMessages);
+                      messages.add({'message': value});
+                      controller.clear();
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Send a Message",
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: () {
+                          CollectionReference messages = FirebaseFirestore
+                              .instance
+                              .collection(kMessages);
+                          messages.add({'message': message});
+                          controller.clear();
+                        },
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
