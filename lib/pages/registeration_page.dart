@@ -9,7 +9,7 @@ import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
 class RegisterationPage extends StatefulWidget {
-  RegisterationPage({super.key});
+  const RegisterationPage({super.key});
   static String id = 'RegisterationPage';
 
   @override

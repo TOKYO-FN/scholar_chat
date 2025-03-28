@@ -10,7 +10,7 @@ import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
   static String id = 'LoginPage';
 
   @override
@@ -107,8 +107,11 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {});
                         try {
                           await loginUser();
-                          showSnackBar(context, 'Success!');
-                          Navigator.pushNamed(context, ChatPage.id);
+                          Navigator.pushNamed(
+                            context,
+                            ChatPage.id,
+                            arguments: email,
+                          );
                         } on FirebaseAuthException catch (e) {
                           switch (e.code) {
                             case 'invalid-email':
