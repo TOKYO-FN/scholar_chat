@@ -45,13 +45,8 @@ class _ChatPageState extends State<ChatPage> {
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/scholar.png', height: 50),
-                  Text("Chat"),
-                ],
-              ),
+              title: Text("Scholar Chat"),
+              actions: [IconButton(onPressed: () {}, icon: Icon(Icons.delete))],
               centerTitle: true,
               backgroundColor: kPrimaryColor,
             ),
@@ -100,7 +95,7 @@ class _ChatPageState extends State<ChatPage> {
                             .collection(kMessages);
                         messages.add({
                           'message': value,
-                          'date': DateTime.now(),
+                          'date': FieldValue.serverTimestamp(),
                           'email': email,
                         });
                         controller.clear();

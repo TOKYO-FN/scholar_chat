@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constants.dart';
 import 'package:scholar_chat/helper/show_snack_bar.dart';
-import 'package:scholar_chat/pages/chat_page.dart';
+import 'package:scholar_chat/pages/login_page.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field.dart';
 
@@ -71,12 +71,19 @@ class _RegisterationPageState extends State<RegisterationPage> {
                   SizedBox(height: 50),
                   CustomTextField.CustomTextFormField(
                     label: 'Email',
-                    onChanged: (data) => email = data,
+                    onChanged: (data) {
+                      email = data;
+                      print(email);
+                    },
                     prefixIcon: Icon(Icons.email_outlined),
                   ),
                   SizedBox(height: 10),
                   CustomTextField.CustomTextFormField(
                     isPassword: obsecureText,
+                    onChanged: (data) {
+                      password = data;
+                      print(password);
+                    },
 
                     label: 'Password',
                     prefixIcon: Icon(Icons.lock_outline_rounded),
@@ -101,7 +108,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                         setState(() {});
                         try {
                           await registerUser();
-                          Navigator.pushNamed(context, ChatPage.id);
+                          Navigator.pushNamed(context, LoginPage.id);
                           showSnackBar(context, 'Success!');
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
@@ -116,7 +123,7 @@ class _RegisterationPageState extends State<RegisterationPage> {
                             );
                           }
                         } catch (e) {
-                          showSnackBar(context, 'An error occurred');
+                          showSnackBar(context, 'An error occurred, $e');
                         }
                         isLoading = false;
                         setState(() {});
